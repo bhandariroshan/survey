@@ -16,18 +16,18 @@
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
     {% block css %}
-    
+
     <!-- Latest compiled and minified Bootstrap 4.1.1 CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    
+
 
     <!-- Your stuff: Third-party CSS libraries go here -->
-    
+
     <!-- This file stores project-specific CSS -->
-    
+
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    
-    
+
+
     {% endblock %}
 
   </head>
@@ -43,31 +43,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
-            {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-              </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-              </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-              </li>
-            {% endif %}
+
           </ul>
         </div>
       </nav>
@@ -94,21 +70,93 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
-      
+
       <!-- Required by Bootstrap v4.1.1 -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
       <!-- Your stuff: Third-party javascript libraries go here -->
-      
+
 
       <!-- place project specific Javascript in this file -->
-      
+
       <script src="{% static 'js/project.js' %}"></script>
-      
+      <script type="text/javascript">
+      {% if survey and code and not code.is_used %}
+          var htmltext = '{{ survey.html | safe }}';
+          $('#maindiv').html(htmltext);
+          $('#maindiv').each(function(i) {
+
+              var $img = $(htmltext).on('load', function(){
+                  var timeleft = 3;
+                  var downloadTimer = setInterval(function(){
+                    timeleft -= 1;
+                    if(timeleft <= 0){
+                      clearInterval(downloadTimer);
+                        var newHtml  = '<div id="surveyDiv" style=" margin-top: 100px; text-align: center;">';
+                            newHtml  +=  '<label style="margin-bottom: 30px;"> <strong> How much do you agree with the statement you saw? </strong> </label>';
+                            newHtml  +=  '<div class="btn-group btn-group-toggle" id="test">';
+
+                            newHtml  +=  '<label class="btn btn-secondary"  style="margin-right: 10px;">';
+                            newHtml  +=   '<input type="radio" value="Highly disagree" name="choice" autocomplete="off"> Highly disagree';
+                            newHtml  +=  '</label>';
+
+                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
+                            newHtml  +=  '<input type="radio" value="Disagree" name="choice" autocomplete="off"> Disagree';
+                            newHtml  +=  '</label>';
+
+                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
+                            newHtml  +=  '<input type="radio" value="Neutral" name="choice" autocomplete="off"> Neutral';
+                            newHtml  +=  '</label>';
+
+                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
+                            newHtml  +=  '<input type="radio"  value="Agree" name="choice" autocomplete="off"> Agree';
+                            newHtml  +=  '</label>';
+
+                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
+                            newHtml  +=  '<input value="Highly agree" type="radio" name="choice" autocomplete="off"> Highly agree';
+                            newHtml  +=  '</label>';
+
+                            newHtml  +=  '</div>';
+                            newHtml  +=  '</div>';
+
+                            $('#maindiv').html(newHtml);
+
+                            $(document).ready(function () {
+                              $('input[name="choice"]').on('click', function (e) {
+                                  var selectvalue = $(this).attr('value');;
+                                  $.ajax({
+                                    type: "POST",
+                                    url: window.location.href,
+                                    data: {
+                                        'value':selectvalue,
+                                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                    },
+                                    success: function (data) {
+                                        if (data['status'] == 'success'){
+
+                                            $('#maindiv').html('<p style="margin-top: 50px; text-align: center;">Thanks!</p>');
+                                        }
+                                    },
+                                    dataType: "JSON"
+                                  });
+                              });
+                            });
+                    }
+                  }, 1000);
+              });
+          });
+
+
+
+        {% else %}
+          $('#maindiv').html('<p>Sorry! We could not find the survey you requested.');
+        {% endif %}
+
+  </script>
 
     {% endblock javascript %}
   </body>
 </html>
- 
+

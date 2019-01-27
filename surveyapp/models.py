@@ -24,11 +24,14 @@ class Survey(models.Model):
 class Codes(models.Model):
     survey = models.ForeignKey('Survey', on_delete=models.CASCADE)
     is_used = models.BooleanField(default=False)
-    code = models.CharField(max_length=200)
-    answer = models.CharField(max_length=200)
+    code = models.CharField(max_length=200, unique=True)
+    answer = models.CharField(max_length=200, null=True, blank=True)
 
     # Meta and Strings:
     class Meta:
         """ Meta data for Language model"""
         verbose_name = _("Code")
         verbose_name_plural = _("Codes")
+
+    def __str__(self):
+        return self.code
