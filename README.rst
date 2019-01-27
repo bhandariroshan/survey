@@ -11,76 +11,57 @@ app to create survey
 :License: MIT
 
 
-Settings
---------
-
-Moved to settings_.
-
-.. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
-
-Basic Commands
+Requirements
 --------------
 
-Setting Up Your Users
-^^^^^^^^^^^^^^^^^^^^^
+Setting Up Docker on your machine
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+* First install docker on your machine. If you are a mac user, please follow https://runnable.com/docker/install-docker-on-macos
 
-* To create an **superuser account**, use this command::
+Running The App
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    $ python manage.py createsuperuser
+* Once you have completed docker installation, including docker and docker-compose, follow following instructions
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-Type checks
-^^^^^^^^^^^
+Instructions
+--------------
 
-Running type checks with mypy:
-
-::
-
-  $ mypy survey
-
-Test coverage
+Build the app
 ^^^^^^^^^^^^^
 
-To run the tests, check your test coverage, and generate an HTML coverage report::
+* To run the application, we need to build it first using following command
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-Running tests with py.test
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ pytest
-
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Moved to `Live reloading and SASS compilation`_.
-
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
+    $ docker-compose -f local.yml  build
 
 
+Set up Admin User
+^^^^^^^^^^^^^^^^^
+
+* To create an **admin account**, use this command::
+
+     $ docker compose -f local.yml run django python manage.py createsuperuser
 
 
+Run the app
+^^^^^^^^^^^^^
 
-Deployment
-----------
+* To run the application, we need to build it first using following command
 
-The following details how to deploy this application.
+    $ docker-compose -f local.yml  up --build
 
+* Go to your browser and type: localhost:8001
+* Enter into admin and then create:
+    a. survey
+    b. code
 
+Accessing the survey
+^^^^^^^^^^^^^^^^^^^^^
 
-Docker
-^^^^^^
+* Go to your browser and using the survey number and code you just created, type: localhost:8000/<survey_number>/<code>
 
-See detailed `cookiecutter-django Docker documentation`_.
+Sample demo of the app
+^^^^^^^^^^^^^^^^^^^^^
 
-.. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
-
-
-
+* Go to
