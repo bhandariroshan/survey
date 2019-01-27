@@ -30,9 +30,6 @@ class SurveyView(TemplateView):
         survey = Survey.objects.get(survey_number=survey)
         code = Codes.objects.get(code=code)
 
-        code.is_used = True
-        code.save()
-
         context['survey'] = survey
         context["code"] = code
 
