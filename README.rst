@@ -51,7 +51,7 @@ Run the app
 
     $ docker-compose -f local.yml  up --build
 
-* Go to your browser and type: localhost:8001
+* Go to your browser and type: localhost:8000
 * Enter into admin and then create:
     a. survey
     b. code
@@ -64,4 +64,4 @@ Accessing the survey
 Sample demo of the app
 ^^^^^^^^^^^^^^^^^^^^^
 
-* Go to
+* Go to http://54.210.233.238:8000/
