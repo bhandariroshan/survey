@@ -26,7 +26,6 @@ class SurveyView(TemplateView):
         survey = kwargs.get('survey')
         code = kwargs.get('code')
 
-        print("Survey::", survey, " Code:: ", code)
         survey = Survey.objects.get(survey_number=survey)
         code = Codes.objects.get(code=code)
 
@@ -46,5 +45,39 @@ class SurveyView(TemplateView):
         code.answer = request.POST.get('value')
         code.save()
 
-        print(code,request.POST.get('value'))
-        return JsonResponse({'status': 'success'})
+        survey = kwargs.get('survey')
+        survey = Survey.objects.get(survey_number=survey)
+
+        newHtml = '<div id="surveyDiv" style=" margin-top: 100px; text-align: center;">'
+        newHtml += '<label style="margin-bottom: 30px;"> <strong> How much do you agree with the statement you saw? </strong> </label>'
+        newHtml += '<div class="btn-group btn-group-toggle" id="test">'
+
+        newHtml += '<label class="btn btn-secondary"  style="margin-right: 10px;">'
+        newHtml += '<input type="radio" value="Highly disagree" name="choice" autocomplete="off"> Highly disagree'
+        newHtml += '</label>';
+
+        newHtml += '<label class="btn btn-secondary" style="margin-right: 10px;">'
+        newHtml += '<input type="radio" value="Disagree" name="choice" autocomplete="off"> Disagree'
+        newHtml += '</label>'
+
+        newHtml += '<label class="btn btn-secondary" style="margin-right: 10px;">'
+        newHtml += '<input type="radio" value="Neutral" name="choice" autocomplete="off"> Neutral'
+        newHtml += '</label>'
+
+        newHtml += '<label class="btn btn-secondary" style="margin-right: 10px;">'
+        newHtml += '<input type="radio"  value="Agree" name="choice" autocomplete="off"> Agree'
+        newHtml += '</label>'
+
+        newHtml += '<label class="btn btn-secondary" style="margin-right: 10px;">'
+        newHtml += '<input value="Highly agree" type="radio" name="choice" autocomplete="off"> Highly agree'
+        newHtml += '</label>'
+
+        newHtml += '</div>'
+        newHtml += '</div>'
+
+        return JsonResponse({
+            'status': 'success',
+            'thanks_html': '<p style="margin-top: 50px; text-align: center;">Thanks!</p>',
+            'options_html': newHtml,
+            'survey_html': survey.html
+        })

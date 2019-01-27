@@ -22,8 +22,8 @@ urlpatterns = [
         include("survey.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
-
-    url("^(?P<survey>\w+)/(?P<code>\w+)/$", SurveyView.as_view(), name="surveyapp"),
+    url("^(?P<survey>\w+)/(?P<code>[\s\S]+)/$", SurveyView.as_view(), name="surveyapp"),
+    url("^(?P<survey>\w+)/(?P<code>[\s\S]+)/$", SurveyView.as_view(), name="surveyapp"),
 
     # Your stuff: custom urls includes go here
 ] + static(

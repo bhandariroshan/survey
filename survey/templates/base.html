@@ -33,23 +33,6 @@
   </head>
 
   <body>
-
-    <div class="mb-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'home' %}">survey</a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-
-          </ul>
-        </div>
-      </nav>
-
-    </div>
-
     <div class="container">
 
       {% if messages %}
@@ -84,44 +67,30 @@
       <script src="{% static 'js/project.js' %}"></script>
       <script type="text/javascript">
       {% if survey and code and not code.is_used %}
-          var htmltext = '{{ survey.html | safe }}';
-          $('#maindiv').html(htmltext);
-          $('#maindiv').each(function(i) {
 
-              var $img = $(htmltext).on('load', function(){
-                  var timeleft = 3;
-                  var downloadTimer = setInterval(function(){
+          $(document).ready(function () {
+              $.ajax({
+                type: "POST",
+                url: window.location.href,
+                data: {
+                    'value':'',
+                    'survey': '{{ survey.survey_number }}',
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    var survey_html = data['survey_html'];
+
+                    $('#maindiv').html(survey_html);
+                    $('#maindiv').each(function(i) {
+
+                    var $img = $(survey_html).on('load', function(){
+                    var timeleft = 3;
+                    var downloadTimer = setInterval(function(){
                     timeleft -= 1;
                     if(timeleft <= 0){
                       clearInterval(downloadTimer);
-                        var newHtml  = '<div id="surveyDiv" style=" margin-top: 100px; text-align: center;">';
-                            newHtml  +=  '<label style="margin-bottom: 30px;"> <strong> How much do you agree with the statement you saw? </strong> </label>';
-                            newHtml  +=  '<div class="btn-group btn-group-toggle" id="test">';
-
-                            newHtml  +=  '<label class="btn btn-secondary"  style="margin-right: 10px;">';
-                            newHtml  +=   '<input type="radio" value="Highly disagree" name="choice" autocomplete="off"> Highly disagree';
-                            newHtml  +=  '</label>';
-
-                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
-                            newHtml  +=  '<input type="radio" value="Disagree" name="choice" autocomplete="off"> Disagree';
-                            newHtml  +=  '</label>';
-
-                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
-                            newHtml  +=  '<input type="radio" value="Neutral" name="choice" autocomplete="off"> Neutral';
-                            newHtml  +=  '</label>';
-
-                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
-                            newHtml  +=  '<input type="radio"  value="Agree" name="choice" autocomplete="off"> Agree';
-                            newHtml  +=  '</label>';
-
-                            newHtml  +=  '<label class="btn btn-secondary" style="margin-right: 10px;">';
-                            newHtml  +=  '<input value="Highly agree" type="radio" name="choice" autocomplete="off"> Highly agree';
-                            newHtml  +=  '</label>';
-
-                            newHtml  +=  '</div>';
-                            newHtml  +=  '</div>';
-
-                            $('#maindiv').html(newHtml);
+                            var options_html = data['options_html'];
+                            $('#maindiv').html(options_html);
 
                             $(document).ready(function () {
                               $('input[name="choice"]').on('click', function (e) {
@@ -136,27 +105,17 @@
                                     success: function (data) {
                                         if (data['status'] == 'success'){
 
-                                            $('#maindiv').html('<p style="margin-top: 50px; text-align: center;">Thanks!</p>');
+                                            $('#maindiv').html(data['thanks_html']);
                                         }
                                     },
                                     dataType: "JSON"
                                   });
                               });
                             });
-                    }
-                  }, 1000);
-              });
-          });
-
-          $(document).ready(function () {
-              $.ajax({
-                type: "POST",
-                url: window.location.href,
-                data: {
-                    'value':'',
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                success: function (data) {
+                          }
+                        }, 1000);
+                    });
+                });
                 },
                 dataType: "JSON"
               });
