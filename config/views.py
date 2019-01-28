@@ -54,7 +54,7 @@ class SurveyView(TemplateView):
 
         newHtml += '<label class="btn btn-secondary"  style="margin-right: 10px;">'
         newHtml += '<input type="radio" value="Highly disagree" name="choice" autocomplete="off"> Highly disagree'
-        newHtml += '</label>';
+        newHtml += '</label>'
 
         newHtml += '<label class="btn btn-secondary" style="margin-right: 10px;">'
         newHtml += '<input type="radio" value="Disagree" name="choice" autocomplete="off"> Disagree'
