@@ -104,7 +104,7 @@ Instructions
 6. Access the app
 ^^^^^^^^^^^^^^^^
 
-* Go to your browser and type: localhost:8001
+* Go to your browser and type: http://<ip_address>
 * Enter into admin and then create:
     a. survey
     b. code
