@@ -14,22 +14,32 @@ app to create survey
 Requirements
 ----------------
 
-1. Create an AWS Ubuntu Machine using free tier account
+1. Create an AWS Ubuntu Machine using free tier account (Ubuntu 16.04 LTS) using key pair value
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2. Connect to the machine using following command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $ ssh -i <yourpemfile.pem> ubuntu@<ip_address>
 
-2. Setup Up Docker on your machine
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3. Create a New Security Group with inboud rules, that allows ssh from any ip and tcp request on port any port
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* First install docker on machine.
-For Mac: If you are a mac user, please follow https://runnable.com/docker/install-docker-on-macos
-For Linux(Ubuntu): https://docs.docker.com/install/linux/docker-ce/ubuntu/
+4. Right click the ec2 instance and from networking, change security group and assign this security group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3. ssh into the machine
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+4. Setup Up Docker on your machine using following commands
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    $ sudo apt-get update
+    $ sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    $ sudo apt-get update
+    $ sudo apt-get install docker-ce
+    $ sudo apt-get install docker-compose
 
 
-
-After the requirements are installed
+After the requirements are completed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Once you have completed docker installation, including docker and docker-compose, follow following instructions
@@ -38,12 +48,20 @@ After the requirements are installed
 Instructions
 ------------------------------------------
 
-1. Build the app
+1. Clone the repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $ git clone https://github.com/bhanduroshan/survey.git
+
+2. Move to the survey directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $ cd survey
+
+3. Build the app
 ^^^^^^^^^^^^^^^^^^^
 
 * To run the application, we need to build it first using following command
 
-    $ docker-compose -f local.yml  build
+    $ sudo docker-compose -f local.yml  build
 
 
 2. Make Migrations
@@ -51,7 +69,7 @@ Instructions
 
 * To run the application, we need to build it first using following command
 
-    $ docker-compose -f local.yml run django python manage.py makemigrations
+    $ sudo docker-compose -f local.yml run django python manage.py makemigrations
 
 
 3. Migrate the app
@@ -59,7 +77,7 @@ Instructions
 
 * To run the application, we need to build it first using following command
 
-    $ docker-compose -f local.yml run django python manage.py migrate
+    $ sudo docker-compose -f local.yml run django python manage.py migrate
 
 
 4. Set up Admin User
@@ -67,7 +85,7 @@ Instructions
 
 * To create an **admin account**, use this command::
 
-     $ docker compose -f local.yml run django python manage.py createsuperuser
+     $ sudo docker-compose -f local.yml run django python manage.py createsuperuser
 
 
 5. Run the app
@@ -90,10 +108,10 @@ Instructions
 7. Accessing the survey
 ^^^^^^^^^^^^^^^^^^^^^
 
-* Go to your browser and using the survey number and code you just created, type: localhost:8001/<survey_number>/<code>
+* Go to your browser and using the survey number and code you just created, type: http://<ip_address>/<survey_number>/<code>
 
 
 8. Sample demo of the app
 ^^^^^^^^^^^^^^^^^^^^^
 
-* Go to http://54.210.233.238:8001/
+* Go to http://3.88.10.38:8001/
