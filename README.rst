@@ -17,27 +17,32 @@ Requirements
 1. Create an AWS Ubuntu Machine using free tier account (Ubuntu 16.04 LTS) using key pair value
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2. Connect to the machine using following command
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    $ ssh -i <yourpemfile.pem> ubuntu@<ip_address>
-
-3. Create a New Security Group with inboud rules, that allows ssh from any ip and tcp request on port any port
+2. Create a New Security Group with inboud rules, that allows ssh from any ip and tcp request on port any port
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4. Right click the ec2 instance and from networking, change security group and assign this security group
+3. Right click the ec2 instance and from networking, change security group and assign this security group
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4. Setup Up Docker on your machine using following commands
+4. Connect to the machine using following command
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $ ssh -i <yourpemfile.pem> ubuntu@<ip_address>
+    
+5. Setup Up Docker on your machine using following commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     $ sudo apt-get update
+    
     $ sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    
     $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    
     $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    
     $ sudo apt-get update
+    
     $ sudo apt-get install docker-ce
+    
     $ sudo apt-get install docker-compose
-
 
 After the requirements are completed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -99,7 +104,7 @@ Instructions
 6. Access the app
 ^^^^^^^^^^^^^^^^
 
-* Go to your browser and type: localhost:8001
+* Go to your browser and type: http://<ip_address>
 * Enter into admin and then create:
     a. survey
     b. code
