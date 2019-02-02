@@ -1,22 +1,25 @@
 version: '2'
 
 volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
-  production_caddy: {}
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
 
 services:
   django:
     build:
       context: .
-      dockerfile: ./compose/production/django/Dockerfile
-    image: survey_production_django
+      dockerfile: ./compose/local/django/Dockerfile
+    image: survey_local_django
     depends_on:
       - postgres
-      - redis
+    volumes:
+      - .:/app
     env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "443:443"
+      - "80:80"
     command: /start
 
   postgres:
@@ -25,25 +28,7 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     image: survey_production_postgres
     volumes:
-      - production_postgres_data:/var/lib/postgresql/data
-      - production_postgres_data_backups:/backups
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
     env_file:
-      - ./.envs/.production/.postgres
-
-  caddy:
-    build:
-      context: .
-      dockerfile: ./compose/production/caddy/Dockerfile
-    image: survey_production_caddy
-    depends_on:
-      - django
-    volumes:
-      - production_caddy:/root/.caddy
-    env_file:
-      - ./.envs/.production/.caddy
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-
-  redis:
-    image: redis:3.2
+      - ./.envs/.local/.postgres
