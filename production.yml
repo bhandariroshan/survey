@@ -1,34 +1,73 @@
 version: '2'
 
 volumes:
-  local_postgres_data: {}
-  local_postgres_data_backups: {}
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_caddy: {}
 
 services:
-  django:
+  django: &django
     build:
       context: .
-      dockerfile: ./compose/local/django/Dockerfile
-    image: survey_local_django
+      dockerfile: ./compose/production/django/Dockerfile
+    image: language_production_django
     depends_on:
       - postgres
-    volumes:
-      - .:/app
+      - redis
     env_file:
-      - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
-    ports:
-      - "443:443"
-      - "80:80"
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
     command: /start
 
   postgres:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: survey_production_postgres
+    image: language_production_postgres
     volumes:
-      - local_postgres_data:/var/lib/postgresql/data
-      - local_postgres_data_backups:/backups
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
     env_file:
-      - ./.envs/.local/.postgres
+      - ./.envs/.production/.postgres
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  caddy:
+    build:
+      context: .
+      dockerfile: ./compose/production/caddy/Dockerfile
+    image: language_production_caddy
+    depends_on:
+      - django
+    volumes:
+      - production_caddy:/root/.caddy
+    env_file:
+      - ./.envs/.production/.caddy
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+
+  redis:
+    image: redis:3.2
+
+  celeryworker:
+    <<: *django
+    image: language_production_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: language_production_celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: language_production_flower
+    ports:
+      - "5555:5555"
+    command: /start-flower

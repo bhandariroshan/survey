@@ -66,7 +66,7 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     # 'allauth.socialaccount',
-    # 'django_extensions',
+    "sslserver",
     'rest_framework',
     'surveyapp'
 ]
