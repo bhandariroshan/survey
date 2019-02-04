@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from .views import HomeView, SurveyView
+
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     # url("", HomeView.as_view(), name="home"),

@@ -123,8 +123,8 @@ EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[survey]')
 
 # ADMIN
 # ------------------------------------------------------------------------------
-# Django Admin URL regex.
-ADMIN_URL = env('DJANGO_ADMIN_URL')
+# # Django Admin URL regex.
+# ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 # Anymail (Mailgun)
 # ------------------------------------------------------------------------------
