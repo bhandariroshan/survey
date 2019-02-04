@@ -71,12 +71,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool('DJANGO_SECURE_CONTENT_TYPE_NOSNIFF', def
 # AWS_S3_OBJECT_PARAMETERS = {
 #     'CacheControl': f'max-age={_AWS_EXPIRY}, s-maxage={_AWS_EXPIRY}, must-revalidate',
 # }
-#
-# # STATIC
-# # ------------------------
-#
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-STATIC_URL = '/static/'
+
 #
 # # MEDIA
 # # ------------------------------------------------------------------------------
