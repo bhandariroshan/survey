@@ -73,7 +73,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool('DJANGO_SECURE_CONTENT_TYPE_NOSNIFF', def
 # # ------------------------
 #
 # STATICFILES_STORAGE = 'config.settings.production.StaticRootS3Boto3Storage'
-# STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
+STATIC_URL = '/static/'
 #
 # # MEDIA
 # # ------------------------------------------------------------------------------
