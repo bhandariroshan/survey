@@ -23,13 +23,15 @@ urlpatterns = [
         include("survey.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
-    url("^(?P<survey>\w+)/(?P<code>[\s\S]+)/$", SurveyView.as_view(), name="surveyapp"),
 
     # Your stuff: custom urls includes go here
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
 
+urlpatterns += [
+    url("^(?P<survey>\w+)/(?P<code>[\s\S]+)/$", SurveyView.as_view(), name="surveyapp")
+]
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
