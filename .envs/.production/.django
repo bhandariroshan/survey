@@ -4,7 +4,7 @@
 DJANGO_SETTINGS_MODULE=config.settings.production
 DJANGO_SECRET_KEY=jtjVE7cLiUbbiATKmDXVUkUkhjCrJlnF7ttUemi6QQpqSA2oVXI0lJPkK9tiJ2uM
 DJANGO_ADMIN_URL=lh8XHvzpe5qrUyW6kKrveYwvJj1bMmtP/
-DJANGO_ALLOWED_HOSTS=.myimgs.ml
+DJANGO_ALLOWED_HOSTS=.testptespt.tk
 
 # Security
 # ------------------------------------------------------------------------------
