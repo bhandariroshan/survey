@@ -6,5 +6,5 @@ set -o nounset
 
 
 python manage.py migrate
-python manage.py ./manage.py runserver_plus --cert /etc/letsencrypt/live/myimgs.ml/fullchain.pem
+python manage.py runserver_plus --cert /etc/letsencrypt/live/myimgs.ml/fullchain.pem
 
