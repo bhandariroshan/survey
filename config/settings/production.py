@@ -1,6 +1,9 @@
 from .base import *  # noqa
 from .base import env
+import os
+import sys
 
+PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -72,7 +75,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool('DJANGO_SECURE_CONTENT_TYPE_NOSNIFF', def
 # # STATIC
 # # ------------------------
 #
-# STATICFILES_STORAGE = 'config.settings.production.StaticRootS3Boto3Storage'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 #
 # # MEDIA
