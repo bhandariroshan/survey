@@ -9,7 +9,7 @@ DJANGO_ALLOWED_HOSTS=.testptespt.tk
 # Security
 # ------------------------------------------------------------------------------
 # TIP: better off using DNS, however, redirect is OK too
-DJANGO_SECURE_SSL_REDIRECT=False
+DJANGO_SECURE_SSL_REDIRECT=True
 
 # Email
 # ------------------------------------------------------------------------------
