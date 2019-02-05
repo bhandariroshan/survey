@@ -41,6 +41,21 @@ Requirements
 
     $ sudo apt-get install docker-compose
 
+6. Go to your freenom account and edit the freenom dns record so as to point to your server ipaddress
+
+7. Go to AWS account and create a publicly accessible s3 bucket and under acounts section create api keys
+
+8. Go the repository and edit following files:
+    a. envs > .production > .caddy ---> change the testptespt.tk domain to your domain name
+    b. envs > .production > .django ---> change the DJANGO_ALLOWED_HOSTS testptespt.tk domain to your domain name
+    c. envs > .production > .django ---> edit the followings:
+
+        # AWS
+        # ------------------------------------------------------------------------------
+        DJANGO_AWS_ACCESS_KEY_ID=
+        DJANGO_AWS_SECRET_ACCESS_KEY=
+        DJANGO_AWS_STORAGE_BUCKET_NAME=
+
 After the requirements are completed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
