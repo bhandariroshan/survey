@@ -156,4 +156,4 @@ Setting Up SSL
 8. Sample demo of the app
 ^^^^^^^^^^^^^^^^^^^^^
 
-* Go to https://meronepal.ml
+* Go to https://testptespt.tk/
