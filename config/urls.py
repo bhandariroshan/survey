@@ -21,14 +21,13 @@ urlpatterns = [
         include("survey.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
-
+    url(r'^admin/', admin.site.urls),
     # Your stuff: custom urls includes go here
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
 
 urlpatterns += [
-    url(r'^admin/', include(admin.site.urls)),
     url("^(?P<survey>\w+)/(?P<code>[\s\S]+)/$", SurveyView.as_view(), name="surveyapp")
 ]
 
