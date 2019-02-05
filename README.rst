@@ -53,8 +53,11 @@ Requirements
         # AWS
         # ------------------------------------------------------------------------------
         DJANGO_AWS_ACCESS_KEY_ID=
+        
         DJANGO_AWS_SECRET_ACCESS_KEY=
+        
         DJANGO_AWS_STORAGE_BUCKET_NAME=
+        
 
 After the requirements are completed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
