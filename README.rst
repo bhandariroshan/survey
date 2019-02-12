@@ -53,8 +53,11 @@ Requirements
         # AWS
         # ------------------------------------------------------------------------------
         DJANGO_AWS_ACCESS_KEY_ID=
+        
         DJANGO_AWS_SECRET_ACCESS_KEY=
+        
         DJANGO_AWS_STORAGE_BUCKET_NAME=
+        
 
 After the requirements are completed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -127,31 +130,6 @@ Instructions
 
 * Go to your browser and using the survey number and code you just created, type: http://<ip_address>/<survey_number>/<code>
 
-
-Setting Up SSL
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-1. Go to your DNS Editor for the domain, change the following to point to cloudflare
-
-    Name Server 1: chan.ns.cloudflare.com
-
-    Name Server 2: phil.ns.cloudflare.com
-
-2. In the cloudflare, do following:
-
-    a. Go to: https://dash.cloudflare.com/login
-
-    b. Create account, verify if you do not have
-
-    c. From the dashboard, click on Add a site
-
-    d. After cloudflare completest the DNS retrieval, you will get an email
-
-    e. After the setup is complete, last step is to domain settings for the domain you just add
-
-    f. From there click on DNS, url will be something like https://dash.cloudflare.com/dc3d38db227eb0c16bea3eeb8428e259/myimgs.ml/dns
-
-    g. from there add www.domain.com and point it to the ip address of your server and save it
 
 8. Sample demo of the app
 ^^^^^^^^^^^^^^^^^^^^^
